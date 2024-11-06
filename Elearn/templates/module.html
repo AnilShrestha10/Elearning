@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ module.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="module-card">
+            <h1>{{ module.title }}</h1>
+            <p>{{ module.content | safe }}</p>  <!-- Safe filter allows HTML in content -->
+
+            {% if not module.completed %}
+            <form action="{{ url_for('complete_module', module_id=module.id) }}" method="POST">
+                <button type="submit">Mark as Completed</button>
+            </form>
+            {% else %}
+                <p>Module Completed!</p>
+                <form method="GET" action="{{ url_for('module_quiz', module_id=module.id) }}">
+                    <button type="submit" class="quiz-button">Take the Quiz</button>
+                </form>
+            {% endif %}
+
+            <p><a href="{{ url_for('dashboard') }}" class="button-link">Back to Dashboard</a></p>
+        </div>
+    </div>
+    
+</body>
+</html>

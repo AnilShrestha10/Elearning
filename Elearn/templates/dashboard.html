@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your E-learning Dashboard</h1>
+        <p>Browse through the available modules and track your progress.</p>
+        
+        <div class="modules-grid">
+            {% for module in modules %}
+                <div class="module-card">
+                    <h2>{{ module.title }}</h2>
+                    <p>{{ module.content | truncate(100) }}</p>
+                    <a href="{{ url_for('module', module_id=module.id) }}" class="button-link">View Module</a>
+                    
+                    {% if module.completed %}
+                        <span class="completed-badge">✔️ Completed</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+    
+
+
+</body>
+</html>
